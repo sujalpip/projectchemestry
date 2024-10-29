@@ -346,17 +346,23 @@ a span:nth-child(4) {
             max-width: 100%;
             margin: 0 auto 2rem;
         }
-
         #search-input {
     width: 450px; /* Allows width to be responsive */
-    max-width: ; /* Limits maximum width for larger screens */
+    max-width: 600px; /* Limits maximum width for larger screens */
     padding: 10px 40px 10px 10px;
     font-size: 16px;
     border: 4px solid var(--primary-color);
     border-radius: 25px;
     box-sizing: border-box; /* Ensures padding doesn't expand the total width */
-    
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
 }
+
+#search-input:focus { 
+    outline: none; /* Remove default outline */
+    background-color:  rgb(38, 255, 38);
+     /* Optional: change background color on focus */
+} 
+
 
 
 .search-icon {
@@ -620,7 +626,7 @@ a span:nth-child(4) {
                 icon: "🐛",
                 overview: {
                     text: "Chlorpyrifos is an organophosphate insecticide used to control foliage and soil-borne insect pests on a variety of food and feed crops.",
-                    image: "/placeholder.svg?height=400&width=600"
+                    image: "kt.jpeg"
                 },
                 benefits: [
                     "Effective against a wide range of insects",
