@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGuard: Neighborhood Pesticide Database</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #e8f5e9;
+            --accent-color: #4caf50;
+            --text-color: #1b5e20;
+            --button-color: #00c853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f8e9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 0;
+            transition: background-color 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(24, 74, 26, 0.9);
+            
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--primary-color);
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 200%;
+            font-weight: 50;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+            color: var(--secondary-color);
+        }
+
+        .cta-button {
+            font-family: 'Raleway', sans-serif;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            padding: 25px 30px;
+            color: var(--button-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 0.5s;
+            letter-spacing: 4px;
+            overflow: hidden;
+            margin-right: 50px;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--button-color);
+            color: var(--secondary-color);
+            box-shadow: 0 0 5px var(--button-color),
+                        0 0 25px var(--button-color),
+                        0 0 50px var(--button-color),
+                        0 0 200px var(--button-color);
+        }
+
+        .cta-button span {
+            position: absolute;
+            display: block;
+        }
+
+        .cta-button span:nth-child(1),
+        .cta-button span:nth-child(2),
+        .cta-button span:nth-child(3),
+        .cta-button span:nth-child(4) {
+            background: linear-gradient(90deg, transparent, var(--button-color));
+        }
+
+        @keyframes animate1 {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        @keyframes animate2 {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
+        }
+
+        @keyframes animate3 {
+            0% { right: -100%; }
+            50%, 100% { right: 100%; }
+        }
+
+        @keyframes animate4 {
+            0% { bottom: -100%; }
+            50%, 100% { bottom: 100%; }
+        }
+a:hover {
+  border-radius: 2rem;
+    background: #0a4d0a;
+    color: #000000;
+    box-shadow: 0 0 5px #135807,
+        0 0 25px #125f16,
+        0 0 50px #0a5b16,
+        0 0 200px #0a5f1b;
+}
+a:nth-child(1) {
+    filter: hue-rotate(270deg);
+}
+a:nth-child(2) {
+    filter: hue-rotate(110deg);
+}
+a span {
+    position: absolute;
+    display: block;
+}
+a span:nth-child(1) {
+    border-radius: 1rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #134e04);
+    animation: animate1 1s linear infinite;
+}
+@keyframes animate1 {
+    0% {
+        left: -100%;
+    }
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg,
+            transparent, #03e9f4);
+    animation: animate2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+@keyframes animate2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+a span:nth-child(3) {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #095d09);
+    animation: animate3 1s linear infinite;
+    animation-delay: 0.50s;
+}
+@keyframes animate3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #055217);
+    animation: animate4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+@keyframes animate4 {
+    0% {
+        bottom: -100%;
+    }
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .pesticide-section {
+            padding: 1rem 0;
+        }
+
+        .pesticide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pesticide-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pesticide-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pesticide-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .pesticide-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Additional styles for new sections */
+        #pesticides {
+            padding: 1rem 0;
+            margin-left: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto 2rem;
+        }
+
+        #search-input {
+    width: 450px; /* Allows width to be responsive */
+    max-width: ; /* Limits maximum width for larger screens */
+    padding: 10px 40px 10px 10px;
+    font-size: 16px;
+    border: 4px solid var(--primary-color);
+    border-radius: 25px;
+    box-sizing: border-box; /* Ensures padding doesn't expand the total width */
+    
+}
+
+
+.search-icon {
+    position: ;
+    right: 300px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+        .pesticide-card {
+            background-color: white;
+            border: 3px solid #105f13;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .pesticide-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .tags {
+            margin-top: 5px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .read-more {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+        }
+
+        .tab.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">EcoGuard</div>
+            <div class="nav-links">
+                <a href="#pesticides">Pesticides</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="background-animation"></div>
+            <div class="hero-content">
+                <h1>Neighborhood Pesticide Database</h1>
+                <p>Understand the impact of pesticides  in your community.</p>
+                <a href="#pesticides" class="cta-button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Explore  Pesticides
+                </a>
+            </div>
+        </section>
+
+        <section id="pesticides">
+            <h2>Pesticide Database</h2>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search for a pesticide...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="pesticide-grid" id="pesticide-grid"></div>
+        </section>
+
+        <section id="contact" class="fade-in">
+            <h2>Contact Us</h2>
+            <p>Have questions or suggestions? Reach out to us at <a href="mailto:info@ecoguard.com">info@ecoguard.com</a></p>
+        </section>
+    </main>
+
+    <div id="pesticideModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div class="tabs">
+                <div class="tab active" data-tab="overview">Overview</div>
+                <div class="tab" data-tab="benefits">Benefits</div>
+                <div class="tab" data-tab="impacts">Harmful Impacts</div>
+            </div>
+            <div id="modalOverview" class="tab-content active"></div>
+            <div id="modalBenefits" class="tab-content"></div>
+            <div id="modalImpacts" class="tab-content"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024  EcoGuard: Neighborhood Pesticide Database. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#pesticides">Pesticides</a>
+                    <a href="#resources">Resources</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#" title="Facebook">📘</a>
+                    <a href="#" title="Twitter">🐦</a>
+                    <a href="#" title="Instagram">📷</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Pesticide database
+        const pesticides = [
+            {
+                name: "Glyphosate",
+                icon: "🌿",
+                overview: {
+                    text: "Glyphosate is a broad-spectrum systemic herbicide used to kill weeds, especially annual broadleaf weeds and grasses that compete with crops.",
+                    image: "Pesticides-02.png"
+                },
+                benefits: [
+                    "Effective against a wide range of weeds",
+                    "Helps in no-till farming, reducing soil erosion",
+                    "Relatively low toxicity to animals and humans when used correctly",
+                    "Increases crop yields by reducing weed competition"
+                ],
+                harmfulImpacts: [
+                    "Potential carcinogen (debated)",
+                    "Can harm beneficial insects like bees",
+                    "May lead to herbicide-resistant weeds",
+                    "Potential negative impact on soil microorganisms"
+                ],
+                tags: ["Herbicide", "Crop Protection", "Controversial"]
+            },
+            {
+                name: "Chlorpyrifos",
+                icon: "🐛",
+                overview: {
+                    text: "Chlorpyrifos is an organophosphate insecticide used to control foliage and soil-borne insect pests on a variety of food and feed crops.",
+                    image: "/placeholder.svg?height=400&width=600"
+                },
+                benefits: [
+                    "Effective against a wide range of insects",
+                    "Long-lasting effect, reducing the frequency of application",
+                    "Helps protect crops from damage, increasing yield",
+                    "Relatively inexpensive compared to some alternatives"
+                ],
+                harmfulImpacts: [
+                    "Toxic to birds, fish, and beneficial insects",
+                    "Can cause developmental problems in children",
+                    "Persists in the environment, potentially contaminating water sources",
+                    "Potential neurotoxic effects on humans and animals"
+                ],
+                tags: ["Insecticide", "Neurotoxin", "Environmental Concern"]
+            },
+            {
+                name: "Atrazine",
+                icon: "🌾",
+                overview: {
+                    text: "Atrazine is a widely used herbicide that prevents pre- and post-emergence broadleaf and grassy weeds in major crops.",
+                    image: "/placeholder.svg?height=400&width=600"
+                },
+                benefits: [
+                    "Effective pre and post-emergence herbicide",
+                    "Increases crop yields, especially in corn",
+                    "Cost-effective weed control",
+                    "Reduces soil erosion by promoting conservation tillage"
+                ],
+                harmfulImpacts: [
+                    "Potential endocrine disruptor",
+                    "Contaminates groundwater and surface water",
+                    "Harmful to aquatic life and amphibians",
+                    "Persists in the environment for long periods"
+                ],
+                tags: ["Herbicide", "Water Contamination", "Endocrine Disruptor"]
+            },
+    {
+        "name": "Fipronil",
+        "icon": "🐜",
+        "overview": {
+            "text": "Fipronil is a broad-spectrum insecticide used for various pests in agriculture and household applications.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against ants and cockroaches",
+            "Long-lasting effects",
+            "Widely used in pest control"
+        ],
+        "harmfulImpacts": [
+            "Highly toxic to aquatic organisms",
+            "Potential neurotoxin to mammals",
+            "Contaminates water supplies"
+        ],
+        "tags": ["Insecticide", "Neurotoxin", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Bromadiolone",
+        "icon": "🐭",
+        "overview": {
+            "text": "Bromadiolone is a second-generation anticoagulant rodenticide.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Highly effective against rodents",
+            "Single-feed action",
+            "Long-lasting control"
+        ],
+        "harmfulImpacts": [
+            "Highly toxic to non-target species",
+            "Persistent in the environment",
+            "Risks to wildlife and pets"
+        ],
+        "tags": ["Rodenticide", "Anticoagulant", "Environmental Impact"]
+    },
+    {
+        "name": "Glyphosate-resistant crops",
+        "icon": "🍚",
+        "overview": {
+            "text": "Crops genetically modified to be resistant to glyphosate, allowing for more effective weed control.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Allows for easier weed management",
+            "Reduces need for mechanical weeding",
+            "Increases yield potential"
+        ],
+        "harmfulImpacts": [
+            "Potential for herbicide resistance in weeds",
+            "Loss of biodiversity",
+            "Possible environmental contamination"
+        ],
+        "tags": ["GMOs", "Weed Management", "Environmental Impact"]
+    },
+    {
+        "name": "Dinitroaniline",
+        "icon": "🚜",
+        "overview": {
+            "text": "Dinitroaniline herbicides are used for pre-emergent weed control.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective at controlling annual weeds",
+            "Low toxicity to mammals",
+            "Widely used in various crops"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to aquatic life",
+            "Linked to soil persistence"
+        ],
+        "tags": ["Herbicide", "Groundwater Contaminant", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Bensulide",
+        "icon": "🌱",
+        "overview": {
+            "text": "Bensulide is a pre-emergent herbicide primarily used for controlling annual grasses and certain broadleaf weeds.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective pre-emergent control",
+            "Widely used in vegetable crops",
+            "Low toxicity to mammals"
+        ],
+        "harmfulImpacts": [
+            "May persist in the environment",
+            "Potential groundwater contaminant",
+            "Linked to aquatic toxicity"
+        ],
+        "tags": ["Herbicide", "Groundwater Contaminant", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Methiocarb",
+        "icon": "🦗",
+        "overview": {
+            "text": "Methiocarb is a carbamate pesticide used primarily as a molluscicide and insecticide.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against slugs and snails",
+            "Rapid action on target pests",
+            "Widely used in agriculture"
+        ],
+        "harmfulImpacts": [
+            "Toxic to birds and mammals",
+            "Potential neurotoxic effects",
+            "Can contaminate water sources"
+        ],
+        "tags": ["Pesticide", "Molluscicide", "Neurotoxic"]
+    },
+    {
+        "name": "Spinosad",
+        "icon": "🐛",
+        "overview": {
+            "text": "Spinosad is an insecticide derived from a naturally occurring soil bacterium.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against various pests",
+            "Low toxicity to mammals and beneficial insects",
+            "Environmentally friendly option"
+        ],
+        "harmfulImpacts": [
+            "Potential toxicity to aquatic life",
+            "May harm pollinators",
+            "Resistance development in pests"
+        ],
+        "tags": ["Insecticide", "Biopesticide", "Environmental Impact"]
+    },
+    {
+        "name": "Pyrethrin",
+        "icon": "🪲",
+        "overview": {
+            "text": "Pyrethrin is a natural insecticide derived from chrysanthemum flowers, used in various pest control products.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Broad-spectrum insect control",
+            "Rapid knockdown of pests",
+            "Biodegradable and environmentally friendly"
+        ],
+        "harmfulImpacts": [
+            "Toxic to beneficial insects",
+            "Potentially harmful to aquatic life",
+            "May cause skin irritation in humans"
+        ],
+        "tags": ["Insecticide", "Natural", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Chlorpropham",
+        "icon": "🥔",
+        "overview": {
+            "text": "Chlorpropham is a growth regulator and herbicide used primarily on potatoes.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Controls sprouting in stored potatoes",
+            "Widely used in the potato industry",
+            "Reduces crop loss"
+        ],
+        "harmfulImpacts": [
+            "Potentially toxic to aquatic organisms",
+            "Linked to soil contamination",
+            "May harm beneficial plants"
+        ],
+        "tags": ["Herbicide", "Growth Regulator", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Sulfacetamide",
+        "icon": "🌿",
+        "overview": {
+            "text": "Sulfacetamide is an antibacterial and antifungal agent used in some pesticides.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against a range of pathogens",
+            "Reduces crop loss due to diseases",
+            "Low toxicity to non-target species"
+        ],
+        "harmfulImpacts": [
+            "Potential development of resistant strains",
+            "May affect beneficial microbes",
+            "Contaminates water sources"
+        ],
+        "tags": ["Antibacterial", "Fungicide", "Environmental Impact"]
+    },
+    {
+        "name": "Fluazifop-p-butyl",
+        "icon": "🌱",
+        "overview": {
+            "text": "Fluazifop-p-butyl is a selective post-emergent herbicide for controlling annual and perennial grass weeds.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Highly effective against grass weeds",
+            "Minimal impact on broadleaf crops",
+            "Widely used in various crops"
+        ],
+        "harmfulImpacts": [
+            "Potentially toxic to aquatic organisms",
+            "Linked to groundwater contamination",
+            "May harm beneficial insects"
+        ],
+        "tags": ["Herbicide", "Grass Control", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Dazomet",
+        "icon": "🌾",
+        "overview": {
+            "text": "Dazomet is a soil fumigant used for controlling nematodes, weeds, and pathogens.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective at controlling soil-borne pests",
+            "Helps improve soil health",
+            "Widely used in agricultural practices"
+        ],
+        "harmfulImpacts": [
+            "Toxic to non-target organisms",
+            "Potential groundwater contaminant",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Fumigant", "Soil Health", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Chloride",
+        "icon": "💧",
+        "overview": {
+            "text": "Chloride is often used in combination with other pesticides to enhance effectiveness.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Enhances pesticide efficacy",
+            "Improves crop health",
+            "Widely used in various formulations"
+        ],
+        "harmfulImpacts": [
+            "Can lead to salt buildup in soil",
+            "Potentially harmful to sensitive crops",
+            "Linked to soil degradation"
+        ],
+        "tags": ["Enhancer", "Soil Health", "Environmental Impact"]
+    },
+    {
+        "name": "Imazethapyr",
+        "icon": "🌱",
+        "overview": {
+            "text": "Imazethapyr is a selective herbicide used for controlling broadleaf and grassy weeds.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective post-emergent control",
+            "Widely used in soybean and canola",
+            "Low toxicity to mammals"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to some aquatic life",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Herbicide", "Post-emergent", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Fenoxaprop-P-ethyl",
+        "icon": "🌱",
+        "overview": {
+            "text": "Fenoxaprop-P-ethyl is a selective herbicide used to control grass weeds in broadleaf crops.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Highly effective against grass weeds",
+            "Minimal impact on broadleaf crops",
+            "Low toxicity to mammals"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to some aquatic organisms",
+            "May harm beneficial insects"
+        ],
+        "tags": ["Herbicide", "Grass Control", "Aquatic Toxicity"]
+    },
+    {
+        "name": "Metribuzin",
+        "icon": "🌱",
+        "overview": {
+            "text": "Metribuzin is a selective herbicide used for controlling weeds in potatoes and soybeans.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective pre- and post-emergent control",
+            "Widely used in various crops",
+            "Low toxicity to non-target species"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to aquatic life",
+            "Linked to soil persistence"
+        ],
+        "tags": ["Herbicide", "Pre-emergent", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Sulfentrazone",
+        "icon": "🌱",
+        "overview": {
+            "text": "Sulfentrazone is a selective herbicide used for controlling broadleaf weeds in various crops.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective broadleaf weed control",
+            "Widely used in soybean and corn",
+            "Low toxicity to mammals"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Linked to soil persistence",
+            "Toxic to some aquatic organisms"
+        ],
+        "tags": ["Herbicide", "Broadleaf Control", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Thifensulfuron-methyl",
+        "icon": "🌾",
+        "overview": {
+            "text": "Thifensulfuron-methyl is a selective herbicide used for controlling broadleaf weeds in cereals.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective broadleaf weed control",
+            "Low toxicity to mammals",
+            "Widely used in wheat and barley"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Linked to soil persistence",
+            "May affect non-target plants"
+        ],
+        "tags": ["Herbicide", "Cereal Crops", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Quinclorac",
+        "icon": "🌱",
+        "overview": {
+            "text": "Quinclorac is a selective herbicide used for controlling crabgrass and other annual grasses.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Highly effective against crabgrass",
+            "Low toxicity to non-target organisms",
+            "Widely used in turf and ornamental plants"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to some aquatic organisms",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Herbicide", "Crabgrass Control", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Triclopyr",
+        "icon": "🌳",
+        "overview": {
+            "text": "Triclopyr is a selective herbicide used to control woody plants and vines.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective control of woody plants",
+            "Helps manage invasive species",
+            "Low toxicity to non-target organisms"
+        ],
+        "harmfulImpacts": [
+            "Potential for groundwater contamination",
+            "Toxic to some aquatic organisms",
+            "Linked to soil persistence"
+        ],
+        "tags": ["Herbicide", "Woody Plant Control", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Fomesafen",
+        "icon": "🍃",
+        "overview": {
+            "text": "Fomesafen is a selective herbicide used to control broadleaf weeds in soybeans.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective broadleaf weed control",
+            "Low toxicity to non-target crops",
+            "Widely used in soybean production"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to some aquatic organisms",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Herbicide", "Soybean", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Tebuthiuron",
+        "icon": "🌳",
+        "overview": {
+            "text": "Tebuthiuron is a selective herbicide used to control woody and herbaceous weeds.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against a range of weeds",
+            "Long-lasting effects",
+            "Promotes healthy crop growth"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to some aquatic life",
+            "May harm beneficial insects"
+        ],
+        "tags": ["Herbicide", "Woody Weed Control", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Carfentrazone-ethyl",
+        "icon": "💚",
+        "overview": {
+            "text": "Carfentrazone-ethyl is a contact herbicide used for fast control of broadleaf weeds.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Rapid action on weeds",
+            "Effective in low concentrations",
+            "Widely used in various crops"
+        ],
+        "harmfulImpacts": [
+            "Potentially harmful to aquatic organisms",
+            "Linked to soil persistence",
+            "May affect non-target plants"
+        ],
+        "tags": ["Herbicide", "Contact Action", "Environmental Impact"]
+    },
+    {
+        "name": "Benomyl",
+        "icon": "🌼",
+        "overview": {
+            "text": "Benomyl is a systemic fungicide used to control fungal diseases in a variety of crops.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against various fungal pathogens",
+            "Improves crop health",
+            "Widely used in agriculture"
+        ],
+        "harmfulImpacts": [
+            "Potential human carcinogen",
+            "Toxic to aquatic life",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Fungicide", "Carcinogen", "Environmental Impact"]
+    },
+    {
+        "name": "Oxadiazon",
+        "icon": "🌱",
+        "overview": {
+            "text": "Oxadiazon is a selective pre-emergent herbicide used to control grassy and broadleaf weeds.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective pre-emergent weed control",
+            "Low toxicity to mammals",
+            "Widely used in turf management"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Linked to soil persistence",
+            "Toxic to some aquatic organisms"
+        ],
+        "tags": ["Herbicide", "Pre-emergent", "Groundwater Contaminant"]
+    },
+    {
+        "name": "Abamectin",
+        "icon": "🪲",
+        "overview": {
+            "text": "Abamectin is an insecticide and acaricide used to control various pests in agriculture.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against mites and insects",
+            "Low toxicity to mammals",
+            "Widely used in fruit and vegetable crops"
+        ],
+        "harmfulImpacts": [
+            "Potential toxicity to aquatic organisms",
+            "May harm beneficial insects",
+            "Linked to resistance development in pests"
+        ],
+        "tags": ["Insecticide", "Acaricide", "Environmental Impact"]
+    },
+    {
+        "name": "Carbendazim",
+        "icon": "🌱",
+        "overview": {
+            "text": "Carbendazim is a systemic fungicide used to control a wide range of fungal diseases.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Highly effective against various fungi",
+            "Reduces crop loss due to diseases",
+            "Widely used in agriculture"
+        ],
+        "harmfulImpacts": [
+            "Potential endocrine disruptor",
+            "Toxic to aquatic life",
+            "Linked to soil persistence"
+        ],
+        "tags": ["Fungicide", "Endocrine Disruptor", "Environmental Impact"]
+    },
+    {
+        "name": "Acetamiprid",
+        "icon": "🦟",
+        "overview": {
+            "text": "Acetamiprid is a neonicotinoid insecticide used to control sucking pests.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against aphids and whiteflies",
+            "Low toxicity to beneficial insects",
+            "Widely used in various crops"
+        ],
+        "harmfulImpacts": [
+            "Potentially harmful to pollinators",
+            "Linked to resistance development",
+            "Contaminates water sources"
+        ],
+        "tags": ["Insecticide", "Neonicotinoid", "Environmental Impact"]
+    },
+    {
+        "name": "Dimethoate",
+        "icon": "🪳",
+        "overview": {
+            "text": "Dimethoate is an organophosphate insecticide used for a wide range of pests in agriculture.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against various insects",
+            "Widely used in fruits and vegetables",
+            "Quick action on pests"
+        ],
+        "harmfulImpacts": [
+            "Highly toxic to humans and animals",
+            "Potential groundwater contaminant",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Insecticide", "Organophosphate", "Toxic"]
+    },
+    {
+        "name": "Bacillus thuringiensis (Bt)",
+        "icon": "🦠",
+        "overview": {
+            "text": "Bacillus thuringiensis is a naturally occurring bacterium used as a biopesticide to control insect pests.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Specific to target pests",
+            "Low toxicity to non-target organisms",
+            "Environmentally friendly option"
+        ],
+        "harmfulImpacts": [
+            "Potential development of resistance in pests",
+            "Limited efficacy against some pests",
+            "May affect beneficial insects"
+        ],
+        "tags": ["Biopesticide", "Targeted Control", "Environmental Impact"]
+    },
+    {
+        "name": "Endosulfan",
+        "icon": "💧",
+        "overview": {
+            "text": "Endosulfan is a broad-spectrum insecticide and acaricide used in agriculture.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against a wide range of pests",
+            "Widely used in various crops",
+            "Quick action on target pests"
+        ],
+        "harmfulImpacts": [
+            "Highly toxic to aquatic organisms",
+            "Potential endocrine disruptor",
+            "Linked to human health risks"
+        ],
+        "tags": ["Insecticide", "Toxic", "Endocrine Disruptor"]
+    },
+    {
+        "name": "Azoxystrobin",
+        "icon": "🍄",
+        "overview": {
+            "text": "Azoxystrobin is a broad-spectrum fungicide used to control various fungal diseases.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against various fungal pathogens",
+            "Improves crop health",
+            "Widely used in agriculture"
+        ],
+        "harmfulImpacts": [
+            "Potential resistance development",
+            "Toxic to aquatic organisms",
+            "Linked to soil persistence"
+        ],
+        "tags": ["Fungicide", "Environmental Impact", "Resistance Development"]
+    },
+    {
+        "name": "Pyraclostrobin",
+        "icon": "🍃",
+        "overview": {
+            "text": "Pyraclostrobin is a systemic fungicide used for controlling fungal diseases in various crops.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against various fungi",
+            "Reduces crop loss due to diseases",
+            "Low toxicity to non-target organisms"
+        ],
+        "harmfulImpacts": [
+            "Potential for resistance development",
+            "Toxic to some aquatic organisms",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Fungicide", "Environmental Impact", "Resistance Development"]
+    },
+    {
+        "name": "Hexazinone",
+        "icon": "🌳",
+        "overview": {
+            "text": "Hexazinone is a selective herbicide used for controlling weeds in forestry and non-crop areas.",
+            "image": "/placeholder.svg?height=400&width=600"
+        },
+        "benefits": [
+            "Effective against a wide range of weeds",
+            "Widely used in forestry",
+            "Long-lasting control"
+        ],
+        "harmfulImpacts": [
+            "Potential groundwater contaminant",
+            "Toxic to some aquatic organisms",
+            "Linked to environmental persistence"
+        ],
+        "tags": ["Herbicide", "Forestry", "Groundwater Contaminant"]
+    }
+]
+
+
+        // Function to create pesticide cards
+        function createPesticideCard(pesticide) {
+            const card = document.createElement('div');
+            card.className = 'pesticide-card slide-in-left';
+            card.innerHTML = `
+                <div class="pesticide-icon">${pesticide.icon}</div>
+                <h2>${pesticide.name}</h2>
+                <p>${pesticide.overview.text.substring(0, 100)}...</p>
+                <div class="tags">
+                    ${pesticide.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                <button class="read-more" data-pesticide="${pesticide.name}">Read More</button>
+            `;
+            return card;
+        }
+
+        // Function to display pesticides
+        function displayPesticides(pesticides) {
+            const grid = document.getElementById('pesticide-grid');
+            grid.innerHTML = '';
+            pesticides.forEach(pesticide => {
+                grid.appendChild(createPesticideCard(pesticide));
+            });
+        }
+
+        // Initial display
+        displayPesticides(pesticides);
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredPesticides = pesticides.filter(pesticide => 
+                pesticide.name.toLowerCase().includes(searchTerm) ||
+                pesticide.overview.text.toLowerCase().includes(searchTerm) ||
+                pesticide.benefits.some(benefit => benefit.toLowerCase().includes(searchTerm)) ||
+                pesticide.harmfulImpacts.some(impact => impact.toLowerCase().includes(searchTerm)) ||
+                pesticide.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            displayPesticides(filteredPesticides);
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('pesticideModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalOverview = document.getElementById('modalOverview');
+        const modalBenefits = document.getElementById('modalBenefits');
+        const modalImpacts = document.getElementById('modalImpacts');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.className === 'read-more') {
+                const pesticideName = e.target.getAttribute('data-pesticide');
+                const pesticide = pesticides.find(p => p.name === pesticideName);
+                
+                modalTitle.textContent = pesticide.name;
+                modalOverview.innerHTML = `
+                    <img src="${pesticide.overview.image}" alt="${pesticide.name}" style="max-width: 100%; height: auto; margin-bottom: 1rem;">
+                    <p>${pesticide.overview.text}</p>
+                `;
+                modalBenefits.innerHTML = `
+                    <ul>
+                        ${pesticide.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                    </ul>
+                `;
+                modalImpacts.innerHTML = `
+                    <ul>
+                        ${pesticide.harmfulImpacts.map(impact => `<li>${impact}</li>`).join('')}
+                    </ul>
+                `;
+                
+                modal.style.display = 'block';
+            }
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`modal${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`).classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for fade-in effect
+        const fadeElems = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElems.forEach(elem => {
+            elem.style.opacity = 0;
+            elem.style.transition = 'opacity 0.5s ease-out';
+            observer.observe(elem);
+        });
+
+        // Background animation
+        const backgroundAnimation = document.querySelector('.background-animation');
+       
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.style.position = 'absolute';
+            leaf.style.width = '20px';
+            leaf.style.height = '20px';
+            leaf.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            leaf.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+            leaf.style.pointerEvents = 'none';
+           
+            const startX = Math.random() * window.innerWidth;
+            const startY = -20;
+            const endX = Math.random() * window.innerWidth;
+            const endY = window.innerHeight + 20;
+           
+            leaf.style.left = `${startX}px`;
+            leaf.style.top = `${startY}px`;
+           
+            backgroundAnimation.appendChild(leaf);
+           
+            leaf.animate(
+                [
+                    { transform: `translate(0, 0) rotate(0deg)`, opacity: 0 },
+                    { opacity: 1, offset: 0.2 },
+                    { transform: `translate(${endX - startX}px, ${endY - startY}px) rotate(360deg)`, opacity: 0 }
+                ],
+                {
+                    duration: Math.random() * 3000 + 3000,
+                    easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+                }
+            ).onfinish = () => {
+                leaf.remove();
+            };
+        }
+       
+        setInterval(createLeaf, 200);
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
