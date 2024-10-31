@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - EcoGuard: Neighborhood Pesticide Database</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #e8f5e9;
+            --accent-color: #4caf50;
+            --text-color: #1b5e20;
+            --button-color: #00c853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f8e9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(46, 125, 50, 0.9);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: 6rem 0 4rem;
+        }
+
+        h1, h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: fadeInLeft 0.8s ease forwards 0.4s;
+        }
+
+        .about-content {
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: fadeInRight 0.8s ease forwards 0.4s;
+        }
+
+        .mission-vision {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .mission-vision p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards 0.6s;
+        }
+
+        .team-section {
+            margin-top: 4rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .team-member:nth-child(1) { animation-delay: 0.8s; }
+        .team-member:nth-child(2) { animation-delay: 1s; }
+        .team-member:nth-child(3) { animation-delay: 1.2s; }
+        .team-member:nth-child(4) { animation-delay: 1.4s; }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: var(--secondary-color);
+                cursor: pointer;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">EcoGuard</div>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#pesticides">Pesticides</a>
+                <a href="about-us.html">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>About EcoGuard</h1>
+        <section class="about-section">
+            <div class="about-content">
+                <p>EcoGuard is a pioneering initiative dedicated to empowering communities with knowledge about pesticides used in their neighborhoods. Our mission is to promote environmental awareness and public health by providing accessible, comprehensive information on pesticides and their impacts.</p>
+                <p>Founded in 2023 by a team of environmental scientists, data analysts, and community advocates, EcoGuard aims to bridge the gap between scientific research and public understanding of pesticide use and its consequences.</p>
+            </div>
+            <img src="Scientist.jpg" alt="EcoGuard team working" class="about-image">
+        </section>
+
+        <section class="mission-vision">
+            <h2>Our Mission</h2>
+            <p>To provide transparent, accurate, and user-friendly information about pesticides, enabling individuals and communities to make informed decisions about their environment and health.</p>
+            <h2>Our Vision</h2>
+            <p>A world where every community has access to clear, scientific information about the chemicals in their environment, leading to healthier ecosystems and informed citizen engagement in environmental policies.</p>
+        </section>
+
+        <section class="team-section">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=150&width=150" alt="Dr. Emily Chen">
+                    <h3>Dr. Emily Chen</h3>
+                    <p>Environmental Scientist</p>
+                </div>
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=150&width=150" alt="Michael Rodriguez">
+                    <h3>Michael Rodriguez</h3>
+                    <p>Data Analyst</p>
+                </div>
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=150&width=150" alt="Sarah Johnson">
+                    <h3>Sarah Johnson</h3>
+                    <p>Community Outreach Coordinator</p>
+                </div>
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=150&width=150" alt="Dr. David Nguyen">
+                    <h3>Dr. David Nguyen</h3>
+                    <p>Toxicologist</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 EcoGuard: Neighborhood Pesticide Database. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
