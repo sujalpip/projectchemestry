@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesticide Information Center</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const resources = [
+            {
+                id: "1",
+                title: "Pesticide Safety Guide",
+                description: "Learn about proper handling and application of pesticides.",
+                imageUrl: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=500&h=350&fit=crop",
+                link: "https://example.com/pesticide-safety",
+                type: "guide",
+                featured: true,
+            },
+            {
+                id: "2",
+                title: "Organic Alternatives",
+                description: "Explore natural and organic alternatives to chemical pesticides.",
+                imageUrl: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=500&h=350&fit=crop",
+                link: "https://example.com/organic-alternatives",
+                type: "guide",
+            },
+            {
+                id: "3",
+                title: "Environmental Impact",
+                description: "Understand the effects of pesticides on the environment.",
+                imageUrl: "https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?w=500&h=350&fit=crop",
+                link: "https://example.com/environmental-impact",
+                type: "documentation",
+            },
+            {
+                id: "4",
+                title: "Pesticide Regulations",
+                description: "Stay up-to-date with the latest pesticide regulations and laws.",
+                imageUrl: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&h=350&fit=crop",
+                link: "https://example.com/pesticide-regulations",
+                type: "documentation",
+            },
+            {
+                id: "5",
+                title: "Integrated Pest Management",
+                description: "Learn about holistic approaches to pest control.",
+                imageUrl: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=500&h=350&fit=crop",
+                link: "https://example.com/integrated-pest-management",
+                type: "tips",
+            },
+            {
+                id: "6",
+                title: "Pesticide Application Techniques",
+                description: "Improve your pesticide application methods for better results.",
+                imageUrl: "https://images.unsplash.com/photo-1589244159943-460088ed5c1e?w=500&h=350&fit=crop",
+                link: "https://example.com/application-techniques",
+                type: "tips",
+            },
+        ];
+
+        const ResourceCard = ({ resource }) => (
+            <div className="group overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-700">
+                <a href={resource.link} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="relative h-48 w-full">
+                        <img
+                            src={resource.imageUrl}
+                            alt={resource.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-75"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-green-800 bg-opacity-50">
+                            <button className="bg-white text-green-800 font-semibold py-2 px-4 rounded-lg pointer-events-none">
+                                View Resource 
+                                <svg xmlns="http://www.w3.org/2000/svg" className="inline-block ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="absolute top-2 right-2 bg-white dark:bg-gray-800 rounded-full p-2">
+                            {resource.type === 'guide' && (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                            )}
+                            {resource.type === 'documentation' && (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            )}
+                            {resource.type === 'tips' && (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            )}
+                        </div>
+                        {resource.featured && (
+                            <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                Featured
+                            </div>
+                        )}
+                    </div>
+                    <div className="p-6">
+                        <h3 className="text-2xl font-bold mb-2 text-green-700 dark:text-green-300">
+                            {resource.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300">
+                            {resource.description}
+                        </p>
+                    </div>
+                    <div className="bg-green-50 dark:bg-green-900 p-6">
+                        <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            Explore Resource
+                            <svg xmlns="http://www.w3.org/2000/svg" className="inline-block ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </button>
+                    </div>
+                </a>
+            </div>
+        );
+
+        const AboutSection = () => (
+            <div className="bg-green-100 dark:bg-green-800 py-16 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                    <h2 className="text-3xl font-extrabold text-green-800 dark:text-green-100 mb-8">About Our Pesticide Information Center</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                                Welcome to our Pesticide Information Center, your comprehensive resource for all things related to pesticides and pest management. Our mission is to provide accurate, up-to-date information to help farmers, gardeners, and environmental professionals make informed decisions about pest control.
+                            </p>
+                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                                We cover a wide range of topics, including:
+                            </p>
+                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4">
+                                <li>Pesticide safety and proper handling</li>
+                                <li>Organic and natural pest control alternatives</li>
+                                <li>Environmental impact of pesticides</li>
+                                <li>Current regulations and laws</li>
+                                <li>Integrated Pest Management (IPM) strategies</li>
+                                <li>Best practices for pesticide application</li>
+                            </ul>
+                        </div>
+                        <div className="flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=500&h=500&fit=crop" alt="Pesticide application" className="rounded-lg shadow-lg" />
+                        </div>
+                    </div>
+                    <div className="mt-12">
+                        <h3 className="text-2xl font-bold text-green-700 dark:text-green-200 mb-4">Our Commitment</h3>
+                        <p className="text-lg text-gray-700 dark:text-gray-300">
+                            We are committed to promoting responsible pest management practices that balance effective pest control with environmental stewardship. Our team of experts continually updates our resources to reflect the latest research, technologies, and best practices in the field of pesticide use and pest management.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const App = () => {
+            const [searchTerm, setSearchTerm] = React.useState("");
+            const [activeTab, setActiveTab] = React.useState("all");
+            const [isLoading, setIsLoading] = React.useState(true);
+
+            React.useEffect(() => {
+                const timer = setTimeout(() => setIsLoading(false), 1500);
+                return () => clearTimeout(timer);
+            }, []);
+
+            const filteredResources = resources.filter((resource) =>
+                resource.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                (activeTab === "all" || resource.type === activeTab)
+            );
+
+            const featuredResource = resources.find((resource) => resource.featured);
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800">
+                    <header className="bg-green-600 text-white py-4">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <h1 className="text-3xl font-bold">Pesticide Information Center</h1>
+                        </div>
+                    </header>
+
+                    <AboutSection />
+
+                    <div className="py-12 px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-7xl mx-auto">
+                            <h2 className="text-3xl font-extrabold text-center mb-12 text-green-800 dark:text-green-100">
+                                Explore Our Resources
+                            </h2>
+
+                            {featuredResource && !isLoading && (
+                                <div className="mb-12">
+                                    <h3 className="text-2xl font-bold mb-4 text-green-700 dark:text-green-200 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976  2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                        </svg>
+                                        Featured Resource
+                                    </h3>
+                                    <ResourceCard resource={featuredResource} />
+                                </div>
+                            )}
+
+                            <div className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div className="relative w-full sm:w-64">
+                                    <input
+                                        type="text"
+                                        placeholder="Search resources..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                                    />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <div className="flex space-x-2">
+                                    <button
+                                        onClick={() => setActiveTab("all")}
+                                        className={`px-4 py-2 rounded-lg ${activeTab === "all" ? "bg-green-600 text-white" : "bg-white text-green-600"}`}
+                                    >
+                                        All
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab("guide")}
+                                        className={`px-4 py-2 rounded-lg ${activeTab === "guide" ? "bg-green-600 text-white" : "bg-white text-green-600"}`}
+                                    >
+                                        Guides
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab("documentation")}
+                                        className={`px-4 py-2 rounded-lg ${activeTab === "documentation" ? "bg-green-600 text-white" : "bg-white text-green-600"}`}
+                                    >
+                                        Docs
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab("tips")}
+                                        className={`px-4 py-2 rounded-lg ${activeTab === "tips" ? "bg-green-600 text-white" : "bg-white text-green-600"}`}
+                                    >
+                                        Tips
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {isLoading
+                                    ? Array(6).fill(0).map((_, index) => (
+                                        <div key={index} className="animate-pulse bg-white rounded-lg overflow-hidden">
+                                            <div className="h-48 bg-gray-300"></div>
+                                            <div className="p-6">
+                                                <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
+                                                <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
+                                                <div className="h-4 bg-gray-300 rounded w-full"></div>
+                                            </div>
+                                            <div className="p-6 bg-gray-100">
+                                                <div className="h-10 bg-gray-300 rounded w-full"></div>
+                                            </div>
+                                        </div>
+                                    ))
+                                    : filteredResources.map((resource) => (
+                                        <ResourceCard key={resource.id} resource={resource} />
+                                    ))}
+                            </div>
+
+                            {!isLoading && filteredResources.length === 0 && (
+                                <p className="text-center text-gray-600 dark:text-gray-300 mt-8">
+                                    No resources found. Try adjusting your search or filters.
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
+                    <footer className="bg-green-700 text-white py-8">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex flex-col md:flex-row justify-between items-center">
+                                <div className="mb-4 md:mb-0">
+                                    <h3 className="text-xl font-bold">Pesticide Information Center</h3>
+                                    <p>Promoting responsible pest management</p>
+                                </div>
+                                <div>
+                                    <ul className="flex space-x-4">
+                                        <li><a href="#" className="hover:text-green-200">Privacy Policy</a></li>
+                                        <li><a href="#" className="hover:text-green-200">Terms of Service</a></li>
+                                        <li><a href="#" className="hover:text-green-200">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="mt-8 text-center">
+                                <p>&copy; 2023 Pesticide Information Center. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
